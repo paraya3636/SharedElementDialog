@@ -23,7 +23,8 @@
             android:id="@+id/neutralButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?android:attr/colorAccent"/>
+            android:textColor="?android:attr/colorAccent"
+            android:visibility="gone"/>
 
         <Space
             android:id="@+id/spacer"
@@ -37,13 +38,15 @@
             android:id="@+id/negativeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?android:attr/colorAccent"/>
+            android:textColor="?android:attr/colorAccent"
+            android:visibility="gone"/>
 
         <Button
             style="?attr/buttonBarPositiveButtonStyle"
             android:id="@+id/positiveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?android:attr/colorAccent"/>
+            android:textColor="?android:attr/colorAccent"
+            android:visibility="gone"/>
     </LinearLayout>
 </ScrollView>

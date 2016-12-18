@@ -67,33 +67,33 @@ class SharedElementDialogActivity : AppCompatActivity() {
             finishAfterTransition()
         }
 
-        dialogInfo.title?.let {
-            title.text = it
+        if (!dialogInfo.title.isNullOrEmpty()) {
+            title.text = dialogInfo.title
             title.visibility = VISIBLE
         }
 
-        dialogInfo.message?.let {
-            message.text = it
+        if (!dialogInfo.message.isNullOrEmpty()) {
+            message.text = dialogInfo.message
             message.visibility = VISIBLE
         }
 
         val buttonTextColor = intent.getIntExtra(AccentColor, 0)
-        dialogInfo.neutralButtonText?.let {
-            neutralButton.text = it
-            neutralButton.setTextColor(buttonTextColor)
-            neutralButton.visibility = VISIBLE
-        }
-
-        dialogInfo.negativeButtonText?.let {
-            negativeButton.text = it
-            negativeButton.setTextColor(buttonTextColor)
-            neutralButton.visibility = VISIBLE
-        }
-
-        dialogInfo.positiveButtonText?.let {
-            positiveButton.text = it
+        if (!dialogInfo.positiveButtonText.isNullOrEmpty()) {
+            positiveButton.text = dialogInfo.positiveButtonText
             positiveButton.setTextColor(buttonTextColor)
             positiveButton.visibility = VISIBLE
+        }
+
+        if (!dialogInfo.negativeButtonText.isNullOrEmpty()) {
+            negativeButton.text = dialogInfo.negativeButtonText
+            negativeButton.setTextColor(buttonTextColor)
+            negativeButton.visibility = VISIBLE
+        }
+
+        if (!dialogInfo.neutralButtonText.isNullOrEmpty()) {
+            neutralButton.text = dialogInfo.neutralButtonText
+            neutralButton.setTextColor(buttonTextColor)
+            neutralButton.visibility = VISIBLE
         }
 
         neutralButton.setOnClickListener {
