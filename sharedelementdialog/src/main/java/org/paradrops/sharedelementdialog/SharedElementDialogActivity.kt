@@ -12,19 +12,17 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.RelativeLayout
-import android.widget.Space
 import android.widget.TextView
 import java.util.*
 
 class SharedElementDialogActivity : AppCompatActivity() {
     companion object {
-        private val ImageResourceId = "ImageResourceId"
         private val AccentColor = "AccentColor"
-        private val DialogInfo = "DialogInfo"
+        private val SharedElementDialog = "SharedElementDialog"
 
-        fun show(context: Context, dialogInfo: DialogInfo, sharedRootView: View?, sharedChildView: View?) {
+        fun show(context: Context, sharedElementDialog: SharedElementDialog, sharedRootView: View?, sharedChildView: View?) {
             val intent = getNavigateIntent(context)
-            intent.putExtra(DialogInfo, dialogInfo)
+            intent.putExtra(SharedElementDialog, sharedElementDialog)
 
             val shares: MutableList<Pair<View, String>> = ArrayList()
             sharedRootView?.let {
@@ -50,7 +48,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
         }
     }
 
-    private val dialogInfo by lazy { intent.getParcelableExtra<DialogInfo>(DialogInfo) }
+    private val dialogInfo by lazy { intent.getParcelableExtra<SharedElementDialog>(SharedElementDialog) }
 
     private val rootContainer by lazy { findViewById(R.id.rootContainer) as RelativeLayout}
     private val title by lazy { findViewById(R.id.title) as TextView }

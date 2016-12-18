@@ -5,7 +5,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.ImageView
-import org.paradrops.sharedelementdialog.DialogInfo
+import org.paradrops.sharedelementdialog.SharedElementDialog
 import org.paradrops.sharedelementdialog.SharedElementDialogActivity
 
 class MainActivity : AppCompatActivity() {
@@ -19,8 +19,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener {
-            val dialogInfo = DialogInfo("Title", "Message", "CANCEL", "NO", "OK")
-            SharedElementDialogActivity.show(this, dialogInfo, image, null)
+            SharedElementDialog.Builder()
+                    .setTitle("Title")
+                    .setMessage("Message")
+                    .setPositiveButton("OK")
+                    .setNegativeButton("NO")
+                    .setNeutralButton("CANCEL")
+                    .create()
+                    .show(this)
         }
 
         alertButton.setOnClickListener {
