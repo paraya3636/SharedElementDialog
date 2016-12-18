@@ -19,10 +19,11 @@
         android:gravity="bottom">
 
         <Button
-            android:id="@+id/neutralButton"
             style="?attr/buttonBarNeutralButtonStyle"
+            android:id="@+id/neutralButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/colorAccent"/>
 
         <Space
             android:id="@+id/spacer"
@@ -32,15 +33,17 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/negativeButton"
             style="?attr/buttonBarNegativeButtonStyle"
+            android:id="@+id/negativeButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/colorAccent"/>
 
         <Button
-            android:id="@+id/positiveButton"
             style="?attr/buttonBarPositiveButtonStyle"
+            android:id="@+id/positiveButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/colorAccent"/>
     </LinearLayout>
 </ScrollView>

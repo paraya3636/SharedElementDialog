@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.support.v7.app.AppCompatActivity
+import android.util.TypedValue
 import android.view.View
 import android.view.View.VISIBLE
 import android.widget.Button
@@ -17,9 +18,10 @@ import android.widget.TextView
 class SharedElementDialogActivity : AppCompatActivity() {
     companion object {
         private val ImageResourceId = "ImageResourceId"
+        private val AccentColor = "AccentColor"
 
         fun show(context: Context, sharedViewContainer: View, sharedImage: View, imageResId: Int) {
-            val intent = Intent(context, SharedElementDialogActivity::class.java)
+            val intent = getNavigateIntent(context)
             intent.putExtra(ImageResourceId, imageResId)
 
             val container = Pair<View, String>(sharedViewContainer, context.getString(R.string.CommonSharedViewContainer))
@@ -30,8 +32,19 @@ class SharedElementDialogActivity : AppCompatActivity() {
         }
 
         fun show(context: Context) {
+            context.startActivity(getNavigateIntent(context))
+        }
+
+        private fun getNavigateIntent(context: Context) : Intent {
             val intent = Intent(context, SharedElementDialogActivity::class.java)
-            context.startActivity(intent)
+            intent.putExtra(AccentColor, getAccentColor(context))
+            return intent
+        }
+
+        private fun getAccentColor(context: Context) : Int {
+            val value = TypedValue()
+            context.theme.resolveAttribute(R.attr.colorAccent, value, true)
+            return value.data
         }
     }
 
@@ -63,6 +76,11 @@ class SharedElementDialogActivity : AppCompatActivity() {
         neutralButton.text = "CANCEL"
         negativeButton.text = "NO"
         positiveButton.text = "OK"
+
+        val buttonTextColor = intent.getIntExtra(AccentColor, 0)
+        neutralButton.setTextColor(buttonTextColor)
+        negativeButton.setTextColor(buttonTextColor)
+        positiveButton.setTextColor(buttonTextColor)
 
         neutralButton.setOnClickListener {
             finishAfterTransition()
