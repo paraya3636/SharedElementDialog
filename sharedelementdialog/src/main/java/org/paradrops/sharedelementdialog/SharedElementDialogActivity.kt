@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.Space
 import android.widget.TextView
+import java.util.*
 
 class SharedElementDialogActivity : AppCompatActivity() {
     companion object {
@@ -21,21 +22,23 @@ class SharedElementDialogActivity : AppCompatActivity() {
         private val AccentColor = "AccentColor"
         private val DialogInfo = "DialogInfo"
 
-        fun show(context: Context, sharedViewContainer: View, sharedImage: View, imageResId: Int) {
-            val intent = getNavigateIntent(context)
-            intent.putExtra(ImageResourceId, imageResId)
-
-            val container = Pair<View, String>(sharedViewContainer, context.getString(R.string.CommonSharedViewContainer))
-            val image = Pair<View, String>(sharedImage, context.getString(R.string.CommonSharedImage))
-
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, container, image)
-            context.startActivity(intent, options.toBundle())
-        }
-
-        fun show(context: Context, dialogInfo: DialogInfo) {
+        fun show(context: Context, dialogInfo: DialogInfo, sharedRootView: View?, sharedChildView: View?) {
             val intent = getNavigateIntent(context)
             intent.putExtra(DialogInfo, dialogInfo)
-            context.startActivity(intent)
+
+            val shares: MutableList<Pair<View, String>> = ArrayList()
+            sharedRootView?.let {
+                val pair = Pair<View, String>(it, context.getString(R.string.shared_root_view))
+                shares.add(pair)
+            }
+
+            sharedChildView?.let {
+                val pair = Pair<View, String>(it, context.getString(R.string.shared_content_view))
+                shares.add(pair)
+            }
+
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, *shares.toTypedArray())
+            context.startActivity(intent, options.toBundle())
         }
 
         private fun getNavigateIntent(context: Context) : Intent {

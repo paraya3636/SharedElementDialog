@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             val dialogInfo = DialogInfo("Title", "Message", "CANCEL", "NO", "OK")
-            SharedElementDialogActivity.show(this, dialogInfo)
+            SharedElementDialogActivity.show(this, dialogInfo, image, null)
         }
 
         alertButton.setOnClickListener {

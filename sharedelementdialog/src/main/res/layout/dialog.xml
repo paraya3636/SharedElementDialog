@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:transitionName="@string/CommonSharedViewContainer"
+        android:transitionName="@string/shared_root_view"
         card_view:cardElevation="@dimen/dialog_elevation"
         card_view:cardCornerRadius="2dp">
 
