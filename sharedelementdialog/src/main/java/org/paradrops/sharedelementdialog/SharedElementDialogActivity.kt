@@ -19,6 +19,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
     companion object {
         private val ImageResourceId = "ImageResourceId"
         private val AccentColor = "AccentColor"
+        private val DialogInfo = "DialogInfo"
 
         fun show(context: Context, sharedViewContainer: View, sharedImage: View, imageResId: Int) {
             val intent = getNavigateIntent(context)
@@ -31,28 +32,26 @@ class SharedElementDialogActivity : AppCompatActivity() {
             context.startActivity(intent, options.toBundle())
         }
 
-        fun show(context: Context) {
-            context.startActivity(getNavigateIntent(context))
+        fun show(context: Context, dialogInfo: DialogInfo) {
+            val intent = getNavigateIntent(context)
+            intent.putExtra(DialogInfo, dialogInfo)
+            context.startActivity(intent)
         }
 
         private fun getNavigateIntent(context: Context) : Intent {
             val intent = Intent(context, SharedElementDialogActivity::class.java)
-            intent.putExtra(AccentColor, getAccentColor(context))
-            return intent
-        }
-
-        private fun getAccentColor(context: Context) : Int {
             val value = TypedValue()
             context.theme.resolveAttribute(R.attr.colorAccent, value, true)
-            return value.data
+            intent.putExtra(AccentColor, value.data)
+            return intent
         }
     }
 
+    private val dialogInfo by lazy { intent.getParcelableExtra<DialogInfo>(DialogInfo) }
+
     private val rootContainer by lazy { findViewById(R.id.rootContainer) as RelativeLayout}
-    private val textSpacerNoTitle by lazy { findViewById(R.id.textSpacerNoTitle) as Space }
     private val title by lazy { findViewById(R.id.title) as TextView }
     private val message by lazy { findViewById(R.id.message) as TextView }
-
     private val neutralButton by lazy { findViewById(R.id.neutralButton) as Button }
     private val negativeButton by lazy { findViewById(R.id.negativeButton) as Button }
     private val positiveButton by lazy { findViewById(R.id.positiveButton) as Button }
@@ -61,26 +60,38 @@ class SharedElementDialogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shared_element_dialog)
 
-        /*
-        intent.getIntExtra(ImageResourceId, 0).let {
-            image.setImageResource(it)
-        }
-        */
-
         rootContainer.setOnClickListener {
             finishAfterTransition()
         }
 
-        message.text = "Message"
+        dialogInfo.title?.let {
+            title.text = it
+            title.visibility = VISIBLE
+        }
 
-        neutralButton.text = "CANCEL"
-        negativeButton.text = "NO"
-        positiveButton.text = "OK"
+        dialogInfo.message?.let {
+            message.text = it
+            message.visibility = VISIBLE
+        }
 
         val buttonTextColor = intent.getIntExtra(AccentColor, 0)
-        neutralButton.setTextColor(buttonTextColor)
-        negativeButton.setTextColor(buttonTextColor)
-        positiveButton.setTextColor(buttonTextColor)
+        dialogInfo.neutralButtonText?.let {
+            neutralButton.text = it
+            neutralButton.setTextColor(buttonTextColor)
+            neutralButton.visibility = VISIBLE
+        }
+
+        dialogInfo.negativeButtonText?.let {
+            negativeButton.text = it
+            negativeButton.setTextColor(buttonTextColor)
+            neutralButton.visibility = VISIBLE
+        }
+
+        dialogInfo.positiveButtonText?.let {
+            positiveButton.text = it
+            positiveButton.setTextColor(buttonTextColor)
+            positiveButton.visibility = VISIBLE
+        }
 
         neutralButton.setOnClickListener {
             finishAfterTransition()
