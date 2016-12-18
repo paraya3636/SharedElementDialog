@@ -1,0 +1,9 @@
+<resources>
+    <!-- This dimens Material design dialog spec -->
+    <!-- https://material.google.com/components/dialogs.html#dialogs-specs -->
+    <dimen name="dialog_padding_material">24dp</dimen>
+    <dimen name="dialog_padding_top_material">18dp</dimen>
+
+    <dimen name="dialog_elevation">24dp</dimen>
+
+</resources>

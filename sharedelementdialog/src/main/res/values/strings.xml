@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SharedElementDialog</string>
+
+    <string name="CommonSharedViewContainer">CommonSharedViewContainer</string>
+    <string name="CommonSharedTitle">CommonSharedTitle</string>
+    <string name="CommonSharedImage">CommonSharedImage</string>
 </resources>
