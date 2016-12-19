@@ -1,0 +1,23 @@
+<resources>
+    <style name="Display4" parent="TextAppearance.AppCompat.Display4"/>
+
+    <style name="Display3" parent="TextAppearance.AppCompat.Display3"/>
+
+    <style name="Display2" parent="TextAppearance.AppCompat.Display2"/>
+
+    <style name="Display1" parent="TextAppearance.AppCompat.Display1"/>
+
+    <style name="HeadLine" parent="TextAppearance.AppCompat.Headline"/>
+
+    <style name="Title" parent="TextAppearance.AppCompat.Title"/>
+    
+    <style name="Subhead" parent="TextAppearance.AppCompat.Subhead"/>
+
+    <style name="Body2" parent="TextAppearance.AppCompat.Body2"/>
+
+    <style name="Body1" parent="TextAppearance.AppCompat.Body1"/>
+
+    <style name="Caption" parent="TextAppearance.AppCompat.Caption"/>
+
+    <style name="Button" parent="TextAppearance.AppCompat.Button"/>
+</resources>
