@@ -1,28 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.paradrops.sharedelementdialogsample.MainActivity">
 
-    <ImageView
-        android:id="@+id/image"
+    <android.support.v7.widget.CardView
+        android:id="@+id/imageRootView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/cat01"/>
+        card_view:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cat01"/>
+
+            <TextView
+                android:id="@+id/imageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cat"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/defaultDialogButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show default dialog"/>
+
+    <Button
+        android:id="@+id/dialogButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show Dialog"/>
 
     <Button
-        android:id="@+id/alertButton"
+        android:id="@+id/noTitleDialogButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show default alert dialog"/>
+        android:text="Show No title Dialog"/>
+
+    <Button
+        android:id="@+id/imageOnlyDialogButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Image only Dialog"/>
 </LinearLayout>
