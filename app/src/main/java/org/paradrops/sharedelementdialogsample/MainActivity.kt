@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.ImageView
 import org.paradrops.sharedelementdialog.SharedElementDialog
-import org.paradrops.sharedelementdialog.SharedElementDialogActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +24,9 @@ class MainActivity : AppCompatActivity() {
                     .setPositiveButton("OK")
                     .setNegativeButton("NO")
                     .setNeutralButton("CANCEL")
+                    .setImageUri(resources.getResourceIdUri(R.drawable.cat01))
+                    .setSharedRootView(image)
+                    .setSharedChildView(image)
                     .create()
                     .show(this)
         }

@@ -11,6 +11,7 @@ import android.util.TypedValue
 import android.view.View
 import android.view.View.VISIBLE
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import java.util.*
@@ -52,6 +53,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
 
     private val rootContainer by lazy { findViewById(R.id.rootContainer) as RelativeLayout}
     private val title by lazy { findViewById(R.id.title) as TextView }
+    private val image by lazy { findViewById(R.id.image) as ImageView }
     private val message by lazy { findViewById(R.id.message) as TextView }
     private val neutralButton by lazy { findViewById(R.id.neutralButton) as Button }
     private val negativeButton by lazy { findViewById(R.id.negativeButton) as Button }
@@ -68,6 +70,12 @@ class SharedElementDialogActivity : AppCompatActivity() {
         if (!dialogInfo.title.isNullOrEmpty()) {
             title.text = dialogInfo.title
             title.visibility = VISIBLE
+        }
+
+        dialogInfo.imageUri?.let {
+            image.setImageURI(it)
+            image.scaleType = dialogInfo.imageScaleType
+            image.visibility = VISIBLE
         }
 
         if (!dialogInfo.message.isNullOrEmpty()) {

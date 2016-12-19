@@ -1,16 +1,20 @@
 package org.paradrops.sharedelementdialog
 
 import android.content.Context
+import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.View
+import android.widget.ImageView
 
 class SharedElementDialog(
-        val title: String?,
-        val message: String?,
-        val neutralButtonText: String?,
-        val negativeButtonText: String?,
-        val positiveButtonText: String?
+        val title: String,
+        val message: String,
+        val neutralButtonText: String,
+        val negativeButtonText: String,
+        val positiveButtonText: String,
+        val imageUri: Uri,
+        val imageScaleType: ImageView.ScaleType
 ) : Parcelable {
 
     var sharedRootView: View? = null
@@ -18,13 +22,21 @@ class SharedElementDialog(
 
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<SharedElementDialog> = object : Parcelable.Creator<SharedElementDialog> {
-            override fun createFromParcel(source: Parcel): SharedElementDialog = SharedElementDialog(source)
+            override fun createFromParcel(source: Parcel): SharedElementDialog = create(source)
             override fun newArray(size: Int): Array<SharedElementDialog?> = arrayOfNulls(size)
         }
+
+        private fun create(source: Parcel) : SharedElementDialog {
+            val title = source.readString()
+            val message = source.readString()
+            val neutralButtonText = source.readString()
+            val negativeButtonText = source.readString()
+            val positiveButtonText = source.readString()
+            val imageUri = source.readParcelable<Uri>(Uri::class.java.classLoader)
+            val imageScaleType = ImageView.ScaleType.valueOf(source.readString())
+            return SharedElementDialog(title, message, neutralButtonText, negativeButtonText, positiveButtonText, imageUri, imageScaleType)
+        }
     }
-
-    constructor(source: Parcel) : this(source.readString(), source.readString(), source.readString(), source.readString(), source.readString())
-
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
@@ -33,6 +45,10 @@ class SharedElementDialog(
         neutralButtonText?.let { dest?.writeString(it) }
         negativeButtonText?.let { dest?.writeString(it) }
         positiveButtonText?.let { dest?.writeString(it) }
+        imageUri?.let { dest?.writeParcelable(it, 0) }
+
+        val name = imageScaleType.name
+        dest?.writeString(name)
     }
 
     fun show(context: Context) {
@@ -40,13 +56,15 @@ class SharedElementDialog(
     }
 
     class Builder() {
-        private var title: String? = null
-        private var message: String? = null
-        private var neutralButtonText: String? = null
-        private var negativeButtonText: String? = null
-        private var positiveButtonText: String? = null
+        private var title: String = ""
+        private var message: String = ""
+        private var neutralButtonText: String = ""
+        private var negativeButtonText: String = ""
+        private var positiveButtonText: String = ""
         private var sharedRootView: View? = null
         private var sharedChildView: View? = null
+        private var imageUri: Uri = Uri.EMPTY
+        private var imageScaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER
 
         fun setTitle(text: String) : Builder {
             title = text
@@ -83,13 +101,25 @@ class SharedElementDialog(
             return this
         }
 
+        fun setImageUri(uri: Uri) : Builder {
+            imageUri = uri
+            return this
+        }
+
+        fun setImageScaleType(scaleType: ImageView.ScaleType) : Builder {
+            imageScaleType = scaleType
+            return this
+        }
+
         fun create() : SharedElementDialog {
             val dialog = SharedElementDialog(
                     title,
                     message,
                     neutralButtonText,
                     negativeButtonText,
-                    positiveButtonText)
+                    positiveButtonText,
+                    imageUri,
+                    imageScaleType)
             dialog.sharedRootView = sharedRootView
             dialog.sharedChildView = sharedChildView
             return dialog
