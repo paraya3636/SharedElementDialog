@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
                     .setNegativeButton("NO")
                     .setNeutralButton("CANCEL")
                     .setImageUri(resources.getResourceIdUri(R.drawable.cat01))
-                    .setSharedRootView(imageRootView)
-                    .setSharedChildView(image)
+                    .setSharedRootViewContainer(imageRootView)
+                    .setSharedContentView(image)
                     .create()
                     .show(this)
         }
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             SharedElementDialog.Builder()
                     .setMessage(imageText.text.toString())
                     .setPositiveButton("OK")
-                    .setSharedChildView(imageText)
+                    .setSharedContentView(imageText)
                     .create()
                     .show(this)
         }
@@ -63,8 +63,8 @@ class MainActivity : AppCompatActivity() {
                     .setPositiveButton("OK")
                     .setNeutralButton("CANCEL")
                     .setImageUri(resources.getResourceIdUri(R.drawable.cat01))
-                    .setSharedRootView(imageRootView)
-                    .setSharedChildView(image)
+                    .setSharedRootViewContainer(imageRootView)
+                    .setSharedContentView(image)
                     .create()
                     .show(this)
         }

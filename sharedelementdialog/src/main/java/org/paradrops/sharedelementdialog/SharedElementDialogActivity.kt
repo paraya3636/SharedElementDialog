@@ -27,7 +27,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
 
             val shares: MutableList<Pair<View, String>> = ArrayList()
             sharedRootView?.let {
-                val pair = Pair<View, String>(it, context.getString(R.string.shared_root_view))
+                val pair = Pair<View, String>(it, context.getString(R.string.shared_root_view_container))
                 shares.add(pair)
             }
 

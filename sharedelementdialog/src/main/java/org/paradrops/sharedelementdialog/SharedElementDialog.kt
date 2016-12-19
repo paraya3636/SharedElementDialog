@@ -17,8 +17,8 @@ class SharedElementDialog(
         val imageScaleType: ImageView.ScaleType
 ) : Parcelable {
 
-    var sharedRootView: View? = null
-    var sharedChildView: View? = null
+    var sharedRootViewContainer: View? = null
+    var sharedContentView: View? = null
 
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<SharedElementDialog> = object : Parcelable.Creator<SharedElementDialog> {
@@ -52,7 +52,7 @@ class SharedElementDialog(
     }
 
     fun show(context: Context) {
-        SharedElementDialogActivity.show(context, this, sharedRootView, sharedChildView)
+        SharedElementDialogActivity.show(context, this, sharedRootViewContainer, sharedContentView)
     }
 
     class Builder() {
@@ -61,8 +61,8 @@ class SharedElementDialog(
         private var neutralButtonText: String = ""
         private var negativeButtonText: String = ""
         private var positiveButtonText: String = ""
-        private var sharedRootView: View? = null
-        private var sharedChildView: View? = null
+        private var sharedRootViewContainer: View? = null
+        private var sharedContentView: View? = null
         private var imageUri: Uri = Uri.EMPTY
         private var imageScaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER
 
@@ -91,13 +91,13 @@ class SharedElementDialog(
             return this
         }
 
-        fun setSharedRootView(view: View) : Builder {
-            sharedRootView = view
+        fun setSharedRootViewContainer(view: View) : Builder {
+            sharedRootViewContainer = view
             return this
         }
 
-        fun setSharedChildView(view: View) : Builder {
-            sharedChildView = view
+        fun setSharedContentView(view: View) : Builder {
+            sharedContentView = view
             return this
         }
 
@@ -120,8 +120,8 @@ class SharedElementDialog(
                     positiveButtonText,
                     imageUri,
                     imageScaleType)
-            dialog.sharedRootView = sharedRootView
-            dialog.sharedChildView = sharedChildView
+            dialog.sharedRootViewContainer = sharedRootViewContainer
+            dialog.sharedContentView = sharedContentView
             return dialog
         }
     }
