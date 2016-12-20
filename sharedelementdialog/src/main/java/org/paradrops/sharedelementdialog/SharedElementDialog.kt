@@ -49,12 +49,12 @@ class SharedElementDialog(
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
-        title?.let { dest?.writeString(it) }
-        message?.let { dest?.writeString(it) }
-        neutralButtonText?.let { dest?.writeString(it) }
-        negativeButtonText?.let { dest?.writeString(it) }
-        positiveButtonText?.let { dest?.writeString(it) }
-        imageUri?.let { dest?.writeParcelable(it, 0) }
+        title.let { dest?.writeString(it) }
+        message.let { dest?.writeString(it) }
+        neutralButtonText.let { dest?.writeString(it) }
+        negativeButtonText.let { dest?.writeString(it) }
+        positiveButtonText.let { dest?.writeString(it) }
+        imageUri.let { dest?.writeParcelable(it, 0) }
 
         val name = imageScaleType.name
         dest?.writeString(name)
