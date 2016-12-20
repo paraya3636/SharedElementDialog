@@ -1,6 +1,7 @@
 package org.paradrops.sharedelementdialog
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
@@ -17,10 +18,18 @@ class SharedElementDialog(
         val imageScaleType: ImageView.ScaleType
 ) : Parcelable {
 
+    interface SharedElementDialogCallback {
+        fun onClickPositiveButton()
+        fun onClickNegativeButton()
+        fun onClickNeutralButton()
+    }
+
     var sharedRootViewContainer: View? = null
     var sharedContentView: View? = null
 
     companion object {
+        val ActivityRequestCode = 0
+
         @JvmField val CREATOR: Parcelable.Creator<SharedElementDialog> = object : Parcelable.Creator<SharedElementDialog> {
             override fun createFromParcel(source: Parcel): SharedElementDialog = create(source)
             override fun newArray(size: Int): Array<SharedElementDialog?> = arrayOfNulls(size)
@@ -53,6 +62,27 @@ class SharedElementDialog(
 
     fun show(context: Context) {
         SharedElementDialogActivity.show(context, this, sharedRootViewContainer, sharedContentView)
+    }
+
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?, dialogCallback: SharedElementDialogCallback?) {
+        if (requestCode != ActivityRequestCode) {
+            return
+        }
+
+        when(resultCode) {
+            DialogActivityResultCode.ON_CLICK_POSITIVE_BUTTON.value -> {
+                dialogCallback?.onClickPositiveButton()
+            }
+            DialogActivityResultCode.ON_CLICK_NEGATIVE_BUTTON.value -> {
+                dialogCallback?.onClickNegativeButton()
+            }
+            DialogActivityResultCode.ON_CLICK_NEUTRAL_BUTTON.value -> {
+                dialogCallback?.onClickNeutralButton()
+            }
+            else -> {
+                // Do nothing
+            }
+        }
     }
 
     class Builder() {
