@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 .setImageUri(resources.getResourceIdUri(R.drawable.cat01))
                 .setSharedRootViewContainer(imageRootView)
                 .setSharedContentView(image)
+                .setTag("SharedElementDialog")
                 .create()
     }
 

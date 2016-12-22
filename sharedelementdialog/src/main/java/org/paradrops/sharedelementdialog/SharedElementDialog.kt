@@ -15,7 +15,8 @@ class SharedElementDialog(
         val negativeButtonText: String,
         val positiveButtonText: String,
         val imageUri: Uri,
-        val imageScaleType: ImageView.ScaleType
+        val imageScaleType: ImageView.ScaleType,
+        val tag: String
 ) : Parcelable {
 
     interface SharedElementDialogCallback {
@@ -29,6 +30,7 @@ class SharedElementDialog(
 
     companion object {
         val ActivityRequestCode = 0
+        val ActivityResultKeyDialogTag = "ActivityResultKeyDialogTag"
 
         @JvmField val CREATOR: Parcelable.Creator<SharedElementDialog> = object : Parcelable.Creator<SharedElementDialog> {
             override fun createFromParcel(source: Parcel): SharedElementDialog = create(source)
@@ -43,7 +45,8 @@ class SharedElementDialog(
             val positiveButtonText = source.readString()
             val imageUri = source.readParcelable<Uri>(Uri::class.java.classLoader)
             val imageScaleType = ImageView.ScaleType.valueOf(source.readString())
-            return SharedElementDialog(title, message, neutralButtonText, negativeButtonText, positiveButtonText, imageUri, imageScaleType)
+            val tag = source.readString()
+            return SharedElementDialog(title, message, neutralButtonText, negativeButtonText, positiveButtonText, imageUri, imageScaleType, tag)
         }
     }
     override fun describeContents() = 0
@@ -58,6 +61,7 @@ class SharedElementDialog(
 
         val name = imageScaleType.name
         dest?.writeString(name)
+        dest?.writeString(tag)
     }
 
     fun show(context: Context) {
@@ -67,6 +71,12 @@ class SharedElementDialog(
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?, dialogCallback: SharedElementDialogCallback?) {
         if (requestCode != ActivityRequestCode) {
             return
+        }
+
+        data?.extras?.getString(ActivityResultKeyDialogTag).let {
+            if (it != tag) {
+                return
+            }
         }
 
         when(resultCode) {
@@ -95,6 +105,7 @@ class SharedElementDialog(
         private var sharedContentView: View? = null
         private var imageUri: Uri = Uri.EMPTY
         private var imageScaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER
+        private var tag = "Default"
 
         fun setTitle(text: String) : Builder {
             title = text
@@ -141,6 +152,11 @@ class SharedElementDialog(
             return this
         }
 
+        fun setTag(text: String) : Builder {
+            this.tag = text
+            return this
+        }
+
         fun create() : SharedElementDialog {
             val dialog = SharedElementDialog(
                     title,
@@ -149,7 +165,8 @@ class SharedElementDialog(
                     negativeButtonText,
                     positiveButtonText,
                     imageUri,
-                    imageScaleType)
+                    imageScaleType,
+                    tag)
             dialog.sharedRootViewContainer = sharedRootViewContainer
             dialog.sharedContentView = sharedContentView
             return dialog

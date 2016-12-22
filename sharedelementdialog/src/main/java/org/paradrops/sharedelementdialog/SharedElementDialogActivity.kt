@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import org.paradrops.sharedelementdialog.SharedElementDialog.Companion.ActivityResultKeyDialogTag
 import java.util.*
 
 class SharedElementDialogActivity : AppCompatActivity() {
@@ -103,18 +104,26 @@ class SharedElementDialogActivity : AppCompatActivity() {
         }
 
         positiveButton.setOnClickListener {
-            setResult(DialogActivityResultCode.ON_CLICK_POSITIVE_BUTTON.value)
-            finishAfterTransition()
+            finishDialog(DialogActivityResultCode.ON_CLICK_POSITIVE_BUTTON.value)
         }
 
         negativeButton.setOnClickListener {
-            setResult(DialogActivityResultCode.ON_CLICK_NEGATIVE_BUTTON.value)
-            finishAfterTransition()
+            finishDialog(DialogActivityResultCode.ON_CLICK_NEGATIVE_BUTTON.value)
         }
 
         neutralButton.setOnClickListener {
-            setResult(DialogActivityResultCode.ON_CLICK_NEUTRAL_BUTTON.value)
-            finishAfterTransition()
+            finishDialog(DialogActivityResultCode.ON_CLICK_NEUTRAL_BUTTON.value)
         }
+    }
+
+    private fun finishDialog(resultCode: Int) {
+        val intent = Intent().run {
+            val bundle = Bundle()
+            bundle.putString(ActivityResultKeyDialogTag, dialogInfo.tag)
+            putExtras(bundle)
+        }
+
+        setResult(resultCode, intent)
+        supportFinishAfterTransition()
     }
 }
