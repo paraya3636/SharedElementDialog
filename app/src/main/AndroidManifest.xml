@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".list.ListActivity">
         </activity>
+        <activity android:name=".click.ClickEventActivity">
+        </activity>
     </application>
 
 </manifest>
