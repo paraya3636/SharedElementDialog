@@ -19,11 +19,12 @@ class SharedElementDialog(
         val tag: String
 ) : Parcelable {
 
-    interface SharedElementDialogCallback {
-        fun onClickPositiveButton()
-        fun onClickNegativeButton()
-        fun onClickNeutralButton()
+    interface OnClickListener {
+        fun onClick(viewId: Int, dialogTag: String)
     }
+    var positiveButtonClickListener: OnClickListener? = null
+    var negativeButtonClickListener: OnClickListener? = null
+    var neutralButtonClickListener: OnClickListener? = null
 
     var sharedRootViewContainer: View? = null
     var sharedContentView: View? = null
@@ -68,7 +69,7 @@ class SharedElementDialog(
         SharedElementDialogActivity.show(context, this, sharedRootViewContainer, sharedContentView)
     }
 
-    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?, dialogCallback: SharedElementDialogCallback?) {
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode != ActivityRequestCode) {
             return
         }
@@ -81,13 +82,13 @@ class SharedElementDialog(
 
         when(resultCode) {
             DialogActivityResultCode.ON_CLICK_POSITIVE_BUTTON.value -> {
-                dialogCallback?.onClickPositiveButton()
+                positiveButtonClickListener?.onClick(R.id.positiveButton, tag)
             }
             DialogActivityResultCode.ON_CLICK_NEGATIVE_BUTTON.value -> {
-                dialogCallback?.onClickNegativeButton()
+                negativeButtonClickListener?.onClick(R.id.negativeButton, tag)
             }
             DialogActivityResultCode.ON_CLICK_NEUTRAL_BUTTON.value -> {
-                dialogCallback?.onClickNeutralButton()
+                neutralButtonClickListener?.onClick(R.id.neutralButton, tag)
             }
             else -> {
                 // Do nothing
@@ -106,6 +107,9 @@ class SharedElementDialog(
         private var imageUri: Uri = Uri.EMPTY
         private var imageScaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER
         private var tag = "Default"
+        private var positiveButtonClickListener: OnClickListener? = null
+        private var negativeButtonClickListener: OnClickListener? = null
+        private var neutralButtonClickListener: OnClickListener? = null
 
         fun setTitle(text: String) : Builder {
             title = text
@@ -117,18 +121,21 @@ class SharedElementDialog(
             return this
         }
 
-        fun setNeutralButton(text: String) : Builder {
+        fun setNeutralButton(text: String, listener: OnClickListener?) : Builder {
             neutralButtonText = text
+            neutralButtonClickListener = listener
             return this
         }
 
-        fun setNegativeButton(text: String) : Builder {
+        fun setNegativeButton(text: String, listener: OnClickListener?) : Builder {
             negativeButtonText = text
+            negativeButtonClickListener = listener
             return this
         }
 
-        fun setPositiveButton(text: String) : Builder {
+        fun setPositiveButton(text: String, listener: OnClickListener?) : Builder {
             positiveButtonText = text
+            positiveButtonClickListener = listener
             return this
         }
 
@@ -167,6 +174,9 @@ class SharedElementDialog(
                     imageUri,
                     imageScaleType,
                     tag)
+            dialog.positiveButtonClickListener = positiveButtonClickListener
+            dialog.negativeButtonClickListener = negativeButtonClickListener
+            dialog.neutralButtonClickListener = neutralButtonClickListener
             dialog.sharedRootViewContainer = sharedRootViewContainer
             dialog.sharedContentView = sharedContentView
             return dialog
