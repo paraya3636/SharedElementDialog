@@ -14,6 +14,8 @@ import org.paradrops.sharedelementdialog.SharedElementDialog
 class MainActivity : AppCompatActivity() {
 
     private val gridViewButton by lazy { findViewById(R.id.gridViewButton) as Button }
+    private val listViewButton by lazy { findViewById(R.id.listViewButton) as Button }
+
     private val imageRootView by lazy { findViewById(R.id.imageRootView) as CardView }
     private val image by lazy { findViewById(R.id.image) as ImageView }
     private val imageText by lazy { findViewById(R.id.imageText) as TextView }
@@ -43,6 +45,10 @@ class MainActivity : AppCompatActivity() {
 
         gridViewButton.setOnClickListener {
             Navigator.goGridView(this)
+        }
+
+        listViewButton.setOnClickListener {
+            Navigator.goListView(this)
         }
 
         defaultDialogButton.setOnClickListener {
