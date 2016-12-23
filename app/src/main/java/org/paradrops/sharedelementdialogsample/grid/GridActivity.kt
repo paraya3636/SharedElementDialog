@@ -25,7 +25,7 @@ class GridActivity : AppCompatActivity() {
             val resId = GridViewItemAdapter.items()[position]
             SharedElementDialog.Builder()
                     .setTitle("Cat")
-                    .setPositiveButton("OK")
+                    .setPositiveButton("OK", null)
                     .setImageUri(resources.getResourceIdUri(resId))
                     .setSharedRootViewContainer(view)
                     .setSharedContentView(view)

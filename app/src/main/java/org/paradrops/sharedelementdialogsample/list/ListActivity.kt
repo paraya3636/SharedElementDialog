@@ -27,7 +27,7 @@ class ListActivity : AppCompatActivity() {
 
             val item = ListViewItemAdapter.items()[position]
             SharedElementDialog.Builder()
-                    .setPositiveButton("OK")
+                    .setPositiveButton("OK", null)
                     .setTitle(item.title)
                     .setMessage(item.message)
                     .setImageUri(resources.getResourceIdUri(item.imageResId))

@@ -11,8 +11,7 @@ import org.paradrops.sharedelementdialog.SharedElementDialog
 import org.paradrops.sharedelementdialogsample.R
 import org.paradrops.sharedelementdialogsample.getResourceIdUri
 
-class ClickEventActivity : AppCompatActivity() {
-
+class ClickEventActivity : AppCompatActivity(), SharedElementDialog.OnClickListener {
     companion object {
         fun navigateIntent(context: Context) : Intent = Intent(context, ClickEventActivity::class.java)
     }
@@ -22,9 +21,9 @@ class ClickEventActivity : AppCompatActivity() {
 
     private val dialog by lazy {
         SharedElementDialog.Builder()
-                .setPositiveButton("OK")
-                .setNegativeButton("CANCEL")
-                .setNeutralButton("♥")
+                .setPositiveButton("OK", this)
+                .setNegativeButton("CANCEL", this)
+                .setNeutralButton("♥", this)
                 .setImageUri(resources.getResourceIdUri(R.drawable.cat03))
                 .setSharedRootViewContainer(cardView)
                 .setSharedContentView(image)
@@ -42,18 +41,20 @@ class ClickEventActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        dialog.onActivityResult(requestCode, resultCode, data, object : SharedElementDialog.SharedElementDialogCallback {
-            override fun onClickPositiveButton() {
+        dialog.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onClick(viewId: Int, dialogTag: String) {
+        when(viewId) {
+            R.id.positiveButton -> {
                 Toast.makeText(this@ClickEventActivity, "Positive Button!", Toast.LENGTH_SHORT).show()
             }
-
-            override fun onClickNegativeButton() {
+            R.id.negativeButton -> {
                 Toast.makeText(this@ClickEventActivity, "Negative Button!", Toast.LENGTH_SHORT).show()
             }
-
-            override fun onClickNeutralButton() {
+            R.id.neutralButton -> {
                 Toast.makeText(this@ClickEventActivity, "Neutral Button!", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 }
