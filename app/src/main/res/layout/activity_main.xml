@@ -8,6 +8,12 @@
     android:layout_height="match_parent"
     tools:context="org.paradrops.sharedelementdialogsample.MainActivity">
 
+    <Button
+        android:id="@+id/gridViewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grid"/>
+
     <android.support.v7.widget.CardView
         android:id="@+id/imageRootView"
         android:layout_width="wrap_content"
