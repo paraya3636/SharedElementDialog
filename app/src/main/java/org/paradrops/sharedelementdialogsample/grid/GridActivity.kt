@@ -20,9 +20,9 @@ class GridActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_grid)
-        gridView.adapter = CatsImageViewAdapter.create(this)
+        gridView.adapter = GridViewItemAdapter.create(this)
         gridView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
-            val resId = CatsImageViewAdapter.items()[position]
+            val resId = GridViewItemAdapter.items()[position]
             SharedElementDialog.Builder()
                     .setTitle("Cat")
                     .setPositiveButton("OK")

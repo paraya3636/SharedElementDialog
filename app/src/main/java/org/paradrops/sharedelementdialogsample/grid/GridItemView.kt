@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import org.paradrops.sharedelementdialogsample.R
 
-class GridImageItemView : ImageView {
+class GridItemView : ImageView {
     companion object {
-        fun inflate(context: Context) : GridImageItemView {
-            return LayoutInflater.from(context).inflate(R.layout.view_grid_image_item, null) as GridImageItemView
+        fun inflate(context: Context) : GridItemView {
+            return LayoutInflater.from(context).inflate(R.layout.view_grid_item, null) as GridItemView
         }
     }
 

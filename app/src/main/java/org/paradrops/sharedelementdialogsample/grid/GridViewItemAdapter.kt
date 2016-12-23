@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import org.paradrops.sharedelementdialogsample.R
 
-class CatsImageViewAdapter(context: Context, resource: Int, items: Array<out Int>) : ArrayAdapter<Int>(context, resource, items) {
+class GridViewItemAdapter(context: Context, resource: Int, items: Array<out Int>) : ArrayAdapter<Int>(context, resource, items) {
     companion object {
-        fun create(context: Context) : CatsImageViewAdapter {
-            return CatsImageViewAdapter(context, R.layout.view_grid_image_item, items())
+        fun create(context: Context) : GridViewItemAdapter {
+            return GridViewItemAdapter(context, R.layout.view_grid_item, items())
         }
 
         fun items() : Array<Int> {
@@ -32,10 +32,10 @@ class CatsImageViewAdapter(context: Context, resource: Int, items: Array<out Int
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var view = convertView
         if (view == null) {
-            view = GridImageItemView.inflate(context)
+            view = GridItemView.inflate(context)
         }
 
-        (view as GridImageItemView).setImageResource(getItem(position))
+        (view as GridItemView).setImageResource(getItem(position))
         return view
     }
 }
