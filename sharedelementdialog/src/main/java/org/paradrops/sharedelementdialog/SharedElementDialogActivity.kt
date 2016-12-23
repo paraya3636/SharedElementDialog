@@ -14,16 +14,17 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import org.paradrops.sharedelementdialog.SharedElementDialog.Companion.ActivityResultKeyDialogTag
 import java.util.*
 
 class SharedElementDialogActivity : AppCompatActivity() {
     companion object {
         private val AccentColor = "AccentColor"
-        private val SharedElementDialog = "SharedElementDialog"
+        private val SharedElementDialogInfo = "SharedElementDialogInfo"
 
         fun show(context: Context, sharedElementDialog: SharedElementDialog, sharedRootView: View?, sharedChildView: View?) {
             val intent = getNavigateIntent(context)
-            intent.putExtra(SharedElementDialog, sharedElementDialog)
+            intent.putExtra(SharedElementDialogInfo, sharedElementDialog)
 
             val shares: MutableList<Pair<View, String>> = ArrayList()
             sharedRootView?.let {
@@ -37,7 +38,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
             }
 
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, *shares.toTypedArray())
-            context.startActivity(intent, options.toBundle())
+            context.startActivityForResult(intent, SharedElementDialog.ActivityRequestCode, options.toBundle())
         }
 
         private fun getNavigateIntent(context: Context) : Intent {
@@ -49,7 +50,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
         }
     }
 
-    private val dialogInfo by lazy { intent.getParcelableExtra<SharedElementDialog>(SharedElementDialog) }
+    private val dialogInfo by lazy { intent.getParcelableExtra<SharedElementDialog>(SharedElementDialogInfo) }
 
     private val rootContainer by lazy { findViewById(R.id.rootContainer) as RelativeLayout}
     private val title by lazy { findViewById(R.id.title) as TextView }
@@ -102,16 +103,27 @@ class SharedElementDialogActivity : AppCompatActivity() {
             neutralButton.visibility = VISIBLE
         }
 
-        neutralButton.setOnClickListener {
-            finishAfterTransition()
+        positiveButton.setOnClickListener {
+            finishDialog(DialogActivityResultCode.ON_CLICK_POSITIVE_BUTTON.value)
         }
 
         negativeButton.setOnClickListener {
-            finishAfterTransition()
+            finishDialog(DialogActivityResultCode.ON_CLICK_NEGATIVE_BUTTON.value)
         }
 
-        positiveButton.setOnClickListener {
-            finishAfterTransition()
+        neutralButton.setOnClickListener {
+            finishDialog(DialogActivityResultCode.ON_CLICK_NEUTRAL_BUTTON.value)
         }
+    }
+
+    private fun finishDialog(resultCode: Int) {
+        val intent = Intent().run {
+            val bundle = Bundle()
+            bundle.putString(ActivityResultKeyDialogTag, dialogInfo.tag)
+            putExtras(bundle)
+        }
+
+        setResult(resultCode, intent)
+        supportFinishAfterTransition()
     }
 }
