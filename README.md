@@ -1,4 +1,5 @@
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Version](https://jitpack.io/v/paraya3636/SharedElementDialog.svg)](https://jitpack.io/#paraya3636/SharedElementDialog)
 
 # SharedElementDialog
 
@@ -11,7 +12,14 @@ This library is Android AlertDialog like and easy to use.
 
 ### Setup
 ```
+app gradle file
 
+dependencies {
+    compile 'com.github.paraya3636:SharedElementDialog:0.1'
+}
+repositories {
+    maven { url 'https://jitpack.io' }
+}
 ```
 
 ### Sample code
