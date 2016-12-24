@@ -15,7 +15,7 @@ This library is Android AlertDialog like and easy to use.
 app gradle file
 
 dependencies {
-    compile 'com.github.paraya3636:SharedElementDialog:0.1'
+    compile 'com.github.paraya3636:SharedElementDialog:0.2'
 }
 repositories {
     maven { url 'https://jitpack.io' }
@@ -75,7 +75,7 @@ class ClickEventActivity : AppCompatActivity(), SharedElementDialog.OnClickListe
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        dialog.onActivityResult(requestCode, resultCode, data) // 
+        dialog.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onClick(viewId: Int, dialogTag: String) {
