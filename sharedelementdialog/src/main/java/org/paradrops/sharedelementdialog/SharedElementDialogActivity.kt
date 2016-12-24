@@ -80,7 +80,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
             title.visibility = VISIBLE
         }
 
-        dialogInfo.imageUri?.let {
+        dialogInfo.imageUri.let {
             image.setImageURI(it)
             image.scaleType = dialogInfo.imageScaleType
             image.visibility = VISIBLE
