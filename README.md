@@ -5,6 +5,8 @@
 SharedElementDialog is MaterialDesign SharedElementTransition library for Android.  
 This library is Android AlertDialog like and easy to use.
 
+![Demo](art/sample.gif)
+
 ## How do I use it?
 
 ### Setup
