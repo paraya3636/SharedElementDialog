@@ -95,8 +95,11 @@ class ClickEventActivity : AppCompatActivity(), SharedElementDialog.OnClickListe
 ```
 
 # SDK Version
-minSdkVersion 21  
-Android5+
+Require  
+minSdkVersion:21 Android5+  
+
+Build  
+minSdkVersion:15 Android4.0.3+ (Don't animation)
 
 # License
 
