@@ -3,6 +3,7 @@ package org.paradrops.sharedelementdialog
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
@@ -37,8 +38,14 @@ class SharedElementDialogActivity : AppCompatActivity() {
                 shares.add(pair)
             }
 
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, *shares.toTypedArray())
-            context.startActivityForResult(intent, SharedElementDialog.ActivityRequestCode, options.toBundle())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, *shares.toTypedArray())
+                context.startActivityForResult(intent, SharedElementDialog.ActivityRequestCode, options.toBundle())
+            } else if (context is Activity) {
+                context.startActivityForResult(intent, SharedElementDialog.ActivityRequestCode)
+            } else {
+                context.startActivity(intent)
+            }
         }
 
         private fun getNavigateIntent(context: Context) : Intent {
@@ -65,7 +72,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shared_element_dialog)
 
         rootContainer.setOnClickListener {
-            finishAfterTransition()
+            finishDialog(DialogActivityResultCode.ON_CANCEL.value)
         }
 
         if (!dialogInfo.title.isNullOrEmpty()) {
@@ -73,7 +80,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
             title.visibility = VISIBLE
         }
 
-        dialogInfo.imageUri?.let {
+        dialogInfo.imageUri.let {
             image.setImageURI(it)
             image.scaleType = dialogInfo.imageScaleType
             image.visibility = VISIBLE
