@@ -22,7 +22,7 @@
             android:ellipsize="end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="viewStart"
+            android:gravity="start"
             android:visibility="gone"/>
     </LinearLayout>
 </LinearLayout>
