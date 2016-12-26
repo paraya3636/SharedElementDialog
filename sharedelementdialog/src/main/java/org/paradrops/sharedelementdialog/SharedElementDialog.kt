@@ -16,7 +16,8 @@ class SharedElementDialog(
         val positiveButtonText: String,
         val imageUri: Uri,
         val imageScaleType: ImageView.ScaleType,
-        val tag: String
+        val tag: String,
+        val customViewLayoutResId: Int
 ) : Parcelable {
 
     interface OnClickListener {
@@ -47,7 +48,8 @@ class SharedElementDialog(
             val imageUri = source.readParcelable<Uri>(Uri::class.java.classLoader)
             val imageScaleType = ImageView.ScaleType.valueOf(source.readString())
             val tag = source.readString()
-            return SharedElementDialog(title, message, neutralButtonText, negativeButtonText, positiveButtonText, imageUri, imageScaleType, tag)
+            val customViewLayoutResId = source.readInt()
+            return SharedElementDialog(title, message, neutralButtonText, negativeButtonText, positiveButtonText, imageUri, imageScaleType, tag, customViewLayoutResId)
         }
     }
     override fun describeContents() = 0
@@ -63,6 +65,7 @@ class SharedElementDialog(
         val name = imageScaleType.name
         dest?.writeString(name)
         dest?.writeString(tag)
+        dest?.writeInt(customViewLayoutResId)
     }
 
     fun show(context: Context) {
@@ -107,6 +110,8 @@ class SharedElementDialog(
         private var imageUri: Uri = Uri.EMPTY
         private var imageScaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER
         private var tag = "Default"
+        private var customViewLayoutResId : Int = 0
+
         private var positiveButtonClickListener: OnClickListener? = null
         private var negativeButtonClickListener: OnClickListener? = null
         private var neutralButtonClickListener: OnClickListener? = null
@@ -164,6 +169,11 @@ class SharedElementDialog(
             return this
         }
 
+        fun setView(layoutResId: Int) : Builder {
+            this.customViewLayoutResId = layoutResId
+            return this
+        }
+
         fun create() : SharedElementDialog {
             val dialog = SharedElementDialog(
                     title,
@@ -173,7 +183,8 @@ class SharedElementDialog(
                     positiveButtonText,
                     imageUri,
                     imageScaleType,
-                    tag)
+                    tag,
+                    customViewLayoutResId)
             dialog.positiveButtonClickListener = positiveButtonClickListener
             dialog.negativeButtonClickListener = negativeButtonClickListener
             dialog.neutralButtonClickListener = neutralButtonClickListener

@@ -3,18 +3,17 @@ package org.paradrops.sharedelementdialog
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import org.paradrops.sharedelementdialog.SharedElementDialog.Companion.ActivityResultKeyDialogTag
 import java.util.*
 
@@ -60,65 +59,77 @@ class SharedElementDialogActivity : AppCompatActivity() {
     private val dialogInfo by lazy { intent.getParcelableExtra<SharedElementDialog>(SharedElementDialogInfo) }
 
     private val rootContainer by lazy { findViewById(R.id.rootContainer) as RelativeLayout}
-    private val title by lazy { findViewById(R.id.title) as TextView }
-    private val image by lazy { findViewById(R.id.image) as ImageView }
-    private val message by lazy { findViewById(R.id.message) as TextView }
-    private val neutralButton by lazy { findViewById(R.id.neutralButton) as Button }
-    private val negativeButton by lazy { findViewById(R.id.negativeButton) as Button }
-    private val positiveButton by lazy { findViewById(R.id.positiveButton) as Button }
+    private val contentContainer by lazy { findViewById(R.id.contentContainer) as FrameLayout }
+
+    private val title by lazy { findViewById(R.id.title) as? TextView }
+    private val image by lazy { findViewById(R.id.image) as? ImageView }
+    private val message by lazy { findViewById(R.id.message) as? TextView }
+    private val neutralButton by lazy { findViewById(R.id.neutralButton) as? Button }
+    private val negativeButton by lazy { findViewById(R.id.negativeButton) as? Button }
+    private val positiveButton by lazy { findViewById(R.id.positiveButton) as? Button }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shared_element_dialog)
+        try {
+            resources.getResourceName(dialogInfo.customViewLayoutResId)
+            LayoutInflater.from(this).inflate(dialogInfo.customViewLayoutResId, null).let {
+                contentContainer.addView(it)
+            }
+        } catch (e: Resources.NotFoundException) {
+            LayoutInflater.from(this).inflate(R.layout.dialog, null).let {
+                contentContainer.addView(it)
+            }
+        }
 
         rootContainer.setOnClickListener {
             finishDialog(DialogActivityResultCode.ON_CANCEL.value)
         }
 
         if (!dialogInfo.title.isNullOrEmpty()) {
-            title.text = dialogInfo.title
-            title.visibility = VISIBLE
+            title?.text = dialogInfo.title
+            title?.visibility = VISIBLE
         }
 
         dialogInfo.imageUri.let {
-            image.setImageURI(it)
-            image.scaleType = dialogInfo.imageScaleType
-            image.visibility = VISIBLE
+            image?.setImageURI(it)
+            image?.scaleType = dialogInfo.imageScaleType
+            image?.visibility = VISIBLE
         }
 
         if (!dialogInfo.message.isNullOrEmpty()) {
-            message.text = dialogInfo.message
-            message.visibility = VISIBLE
+            message?.text = dialogInfo.message
+            message?.visibility = VISIBLE
         }
 
         val buttonTextColor = intent.getIntExtra(AccentColor, 0)
         if (!dialogInfo.positiveButtonText.isNullOrEmpty()) {
-            positiveButton.text = dialogInfo.positiveButtonText
-            positiveButton.setTextColor(buttonTextColor)
-            positiveButton.visibility = VISIBLE
+            positiveButton?.text = dialogInfo.positiveButtonText
+            positiveButton?.setTextColor(buttonTextColor)
+            positiveButton?.visibility = VISIBLE
         }
 
         if (!dialogInfo.negativeButtonText.isNullOrEmpty()) {
-            negativeButton.text = dialogInfo.negativeButtonText
-            negativeButton.setTextColor(buttonTextColor)
-            negativeButton.visibility = VISIBLE
+            negativeButton?.text = dialogInfo.negativeButtonText
+            negativeButton?.setTextColor(buttonTextColor)
+            negativeButton?.visibility = VISIBLE
         }
 
         if (!dialogInfo.neutralButtonText.isNullOrEmpty()) {
-            neutralButton.text = dialogInfo.neutralButtonText
-            neutralButton.setTextColor(buttonTextColor)
-            neutralButton.visibility = VISIBLE
+            neutralButton?.text = dialogInfo.neutralButtonText
+            neutralButton?.setTextColor(buttonTextColor)
+            neutralButton?.visibility = VISIBLE
         }
 
-        positiveButton.setOnClickListener {
+        positiveButton?.setOnClickListener {
             finishDialog(DialogActivityResultCode.ON_CLICK_POSITIVE_BUTTON.value)
         }
 
-        negativeButton.setOnClickListener {
+        negativeButton?.setOnClickListener {
             finishDialog(DialogActivityResultCode.ON_CLICK_NEGATIVE_BUTTON.value)
         }
 
-        neutralButton.setOnClickListener {
+        neutralButton?.setOnClickListener {
             finishDialog(DialogActivityResultCode.ON_CLICK_NEUTRAL_BUTTON.value)
         }
     }

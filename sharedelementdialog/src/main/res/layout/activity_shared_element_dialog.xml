@@ -10,7 +10,8 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <include layout="@layout/dialog"
+    <FrameLayout
+        android:id="@+id/contentContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
