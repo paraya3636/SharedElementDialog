@@ -17,7 +17,8 @@ class SharedElementDialog(
         val imageUri: Uri,
         val imageScaleType: ImageView.ScaleType,
         val tag: String,
-        val customViewLayoutResId: Int
+        val customViewLayoutResId: Int,
+        val customLayoutType: CustomLayoutType
 ) : Parcelable {
 
     interface OnClickListener {
@@ -49,7 +50,8 @@ class SharedElementDialog(
             val imageScaleType = ImageView.ScaleType.valueOf(source.readString())
             val tag = source.readString()
             val customViewLayoutResId = source.readInt()
-            return SharedElementDialog(title, message, neutralButtonText, negativeButtonText, positiveButtonText, imageUri, imageScaleType, tag, customViewLayoutResId)
+            val customLayoutType = CustomLayoutType.valueOf(source.readString())
+            return SharedElementDialog(title, message, neutralButtonText, negativeButtonText, positiveButtonText, imageUri, imageScaleType, tag, customViewLayoutResId, customLayoutType)
         }
     }
     override fun describeContents() = 0
@@ -62,10 +64,10 @@ class SharedElementDialog(
         positiveButtonText.let { dest?.writeString(it) }
         imageUri.let { dest?.writeParcelable(it, 0) }
 
-        val name = imageScaleType.name
-        dest?.writeString(name)
+        dest?.writeString(imageScaleType.name)
         dest?.writeString(tag)
         dest?.writeInt(customViewLayoutResId)
+        dest?.writeString(customLayoutType.name)
     }
 
     fun show(context: Context) {
@@ -111,6 +113,7 @@ class SharedElementDialog(
         private var imageScaleType: ImageView.ScaleType = ImageView.ScaleType.FIT_CENTER
         private var tag = "Default"
         private var customViewLayoutResId : Int = 0
+        private var customLayoutType: CustomLayoutType = CustomLayoutType.None
 
         private var positiveButtonClickListener: OnClickListener? = null
         private var negativeButtonClickListener: OnClickListener? = null
@@ -171,6 +174,13 @@ class SharedElementDialog(
 
         fun setView(layoutResId: Int) : Builder {
             this.customViewLayoutResId = layoutResId
+            this.customLayoutType = CustomLayoutType.ContentOnly
+            return this
+        }
+
+        fun setView(layoutResId: Int, customLayoutType: CustomLayoutType) : Builder {
+            this.customViewLayoutResId = layoutResId
+            this.customLayoutType = customLayoutType
             return this
         }
 
@@ -184,7 +194,8 @@ class SharedElementDialog(
                     imageUri,
                     imageScaleType,
                     tag,
-                    customViewLayoutResId)
+                    customViewLayoutResId,
+                    customLayoutType)
             dialog.positiveButtonClickListener = positiveButtonClickListener
             dialog.negativeButtonClickListener = negativeButtonClickListener
             dialog.neutralButtonClickListener = neutralButtonClickListener

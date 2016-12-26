@@ -3,7 +3,6 @@ package org.paradrops.sharedelementdialog
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
@@ -13,7 +12,10 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
-import android.widget.*
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import org.paradrops.sharedelementdialog.SharedElementDialog.Companion.ActivityResultKeyDialogTag
 import java.util.*
 
@@ -58,9 +60,6 @@ class SharedElementDialogActivity : AppCompatActivity() {
 
     private val dialogInfo by lazy { intent.getParcelableExtra<SharedElementDialog>(SharedElementDialogInfo) }
 
-    private val rootContainer by lazy { findViewById(R.id.rootContainer) as RelativeLayout}
-    private val contentContainer by lazy { findViewById(R.id.contentContainer) as FrameLayout }
-
     private val title by lazy { findViewById(R.id.title) as? TextView }
     private val image by lazy { findViewById(R.id.image) as? ImageView }
     private val message by lazy { findViewById(R.id.message) as? TextView }
@@ -70,19 +69,9 @@ class SharedElementDialogActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shared_element_dialog)
-        try {
-            resources.getResourceName(dialogInfo.customViewLayoutResId)
-            LayoutInflater.from(this).inflate(dialogInfo.customViewLayoutResId, null).let {
-                contentContainer.addView(it)
-            }
-        } catch (e: Resources.NotFoundException) {
-            LayoutInflater.from(this).inflate(R.layout.dialog, null).let {
-                contentContainer.addView(it)
-            }
-        }
+        initContentView()
 
-        rootContainer.setOnClickListener {
+        findViewById(R.id.rootContainer).setOnClickListener {
             finishDialog(DialogActivityResultCode.ON_CANCEL.value)
         }
 
@@ -131,6 +120,26 @@ class SharedElementDialogActivity : AppCompatActivity() {
 
         neutralButton?.setOnClickListener {
             finishDialog(DialogActivityResultCode.ON_CLICK_NEUTRAL_BUTTON.value)
+        }
+    }
+
+    private fun initContentView() {
+        when(dialogInfo.customLayoutType) {
+            CustomLayoutType.None -> {
+                setContentView(R.layout.activity_dialog)
+            }
+            CustomLayoutType.ContentOnly -> {
+                setContentView(R.layout.activity_content_custom_dialog)
+                LayoutInflater.from(this).inflate(dialogInfo.customViewLayoutResId, null).let {
+                    (findViewById(R.id.contentArea) as? FrameLayout)?.addView(it)
+                }
+            }
+            CustomLayoutType.Full -> {
+                setContentView(R.layout.activity_full_custom_dialog)
+                LayoutInflater.from(this).inflate(R.layout.dialog, null).let {
+                    (findViewById(R.id.contentContainer) as? FrameLayout)?.addView(it)
+                }
+            }
         }
     }
 
