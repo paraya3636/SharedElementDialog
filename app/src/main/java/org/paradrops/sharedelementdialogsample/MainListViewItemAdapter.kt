@@ -14,7 +14,7 @@ class MainListViewItemAdapter(context: Context, resource: Int, items: Array<out 
         }
 
         fun items() : Array<String> {
-            return arrayOf("GridView", "ListView", "OnClickListener")
+            return arrayOf("GridView", "ListView", "OnClickListener", "Custom layout")
         }
     }
 

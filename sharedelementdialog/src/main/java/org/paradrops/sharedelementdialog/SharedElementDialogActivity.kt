@@ -136,7 +136,7 @@ class SharedElementDialogActivity : AppCompatActivity() {
             }
             CustomLayoutType.Full -> {
                 setContentView(R.layout.activity_full_custom_dialog)
-                LayoutInflater.from(this).inflate(R.layout.dialog, null).let {
+                LayoutInflater.from(this).inflate(dialogInfo.customViewLayoutResId, null).let {
                     (findViewById(R.id.contentContainer) as? FrameLayout)?.addView(it)
                 }
             }

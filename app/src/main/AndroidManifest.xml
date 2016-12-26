@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".click.ClickEventActivity">
         </activity>
+        <activity android:name=".customlayout.CustomLayoutActivity">
+        </activity>
     </application>
 
 </manifest>
