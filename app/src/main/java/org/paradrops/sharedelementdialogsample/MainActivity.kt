@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
                 0 -> Navigator.goGridView(this)
                 1 -> Navigator.goListView(this)
                 2 -> Navigator.goClickEventView(this)
+                3 -> Navigator.goCustomLayoutView(this)
             }
         }
     }

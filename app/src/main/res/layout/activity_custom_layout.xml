@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context="org.paradrops.sharedelementdialogsample.customlayout.CustomLayoutActivity">
+    <ImageButton
+        style="?attr/borderlessButtonStyle"
+        android:id="@+id/customButton"
+        android:layout_width="132dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        android:background="@android:color/transparent"
+        android:src="@drawable/cat01"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Custom layout dialog"/>
+
+    <ImageButton
+        style="?attr/borderlessButtonStyle"
+        android:id="@+id/fullCustomButton"
+        android:layout_width="132dp"
+        android:layout_height="88dp"
+        android:scaleType="centerCrop"
+        android:background="@android:color/transparent"
+        android:src="@drawable/cat02"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Full custom layout dialog"/>
+</LinearLayout>
