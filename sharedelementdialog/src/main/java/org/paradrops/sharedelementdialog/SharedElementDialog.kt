@@ -18,7 +18,8 @@ class SharedElementDialog(
         val imageScaleType: ImageView.ScaleType,
         val tag: String,
         val customViewLayoutResId: Int,
-        val customLayoutType: CustomLayoutType
+        val customLayoutType: CustomLayoutType,
+        val cancelable: Boolean
 ) : Parcelable {
 
     interface OnClickListener {
@@ -51,7 +52,8 @@ class SharedElementDialog(
             val tag = source.readString()
             val customViewLayoutResId = source.readInt()
             val customLayoutType = CustomLayoutType.valueOf(source.readString())
-            return SharedElementDialog(title, message, neutralButtonText, negativeButtonText, positiveButtonText, imageUri, imageScaleType, tag, customViewLayoutResId, customLayoutType)
+            val cancelable = source.readInt() != 0
+            return SharedElementDialog(title, message, neutralButtonText, negativeButtonText, positiveButtonText, imageUri, imageScaleType, tag, customViewLayoutResId, customLayoutType, cancelable)
         }
     }
     override fun describeContents() = 0
@@ -68,6 +70,11 @@ class SharedElementDialog(
         dest?.writeString(tag)
         dest?.writeInt(customViewLayoutResId)
         dest?.writeString(customLayoutType.name)
+        if (cancelable) {
+            dest?.writeInt(1)
+        } else {
+            dest?.writeInt(0)
+        }
     }
 
     fun show(context: Context) {
@@ -114,6 +121,7 @@ class SharedElementDialog(
         private var tag = "Default"
         private var customViewLayoutResId : Int = 0
         private var customLayoutType: CustomLayoutType = CustomLayoutType.None
+        private var cancelable: Boolean = true
 
         private var positiveButtonClickListener: OnClickListener? = null
         private var negativeButtonClickListener: OnClickListener? = null
@@ -184,6 +192,11 @@ class SharedElementDialog(
             return this
         }
 
+        fun setCancelable(cancelable: Boolean) : Builder {
+            this.cancelable = cancelable
+            return this
+        }
+
         fun create() : SharedElementDialog {
             val dialog = SharedElementDialog(
                     title,
@@ -195,7 +208,8 @@ class SharedElementDialog(
                     imageScaleType,
                     tag,
                     customViewLayoutResId,
-                    customLayoutType)
+                    customLayoutType,
+                    cancelable)
             dialog.positiveButtonClickListener = positiveButtonClickListener
             dialog.negativeButtonClickListener = negativeButtonClickListener
             dialog.neutralButtonClickListener = neutralButtonClickListener

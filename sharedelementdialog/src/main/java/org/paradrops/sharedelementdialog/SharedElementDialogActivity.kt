@@ -71,8 +71,10 @@ class SharedElementDialogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initContentView()
 
-        findViewById(R.id.rootContainer).setOnClickListener {
-            finishDialog(DialogActivityResultCode.ON_CANCEL.value)
+        if (dialogInfo.cancelable) {
+            findViewById(R.id.rootContainer).setOnClickListener {
+                finishDialog(DialogActivityResultCode.ON_CANCEL.value)
+            }
         }
 
         if (!dialogInfo.title.isNullOrEmpty()) {
