@@ -15,7 +15,7 @@ This library is Android AlertDialog like and easy to use.
 app gradle file
 
 dependencies {
-    compile 'com.github.paraya3636:SharedElementDialog:0.2'
+    compile 'com.github.paraya3636:SharedElementDialog:0.4'
 }
 repositories {
     maven { url 'https://jitpack.io' }
