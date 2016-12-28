@@ -27,6 +27,7 @@ class ClickEventActivity : AppCompatActivity(), SharedElementDialog.OnClickListe
                 .setImageUri(resources.getResourceIdUri(R.drawable.cat03))
                 .setSharedRootViewContainer(cardView)
                 .setSharedContentView(image)
+                .setCancelable(false)
                 .create()
     }
 
