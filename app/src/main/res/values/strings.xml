@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SharedElementDialogSample</string>
     <string name="title_activity_codacy_test">CodacyTestActivity</string>
+    <string name="title_activity_codacy_test2">CodacyTest2Activity</string>
 </resources>
