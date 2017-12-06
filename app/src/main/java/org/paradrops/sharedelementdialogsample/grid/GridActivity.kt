@@ -15,7 +15,7 @@ class GridActivity : AppCompatActivity() {
         fun navigateIntent(context: Context) : Intent = Intent(context, GridActivity::class.java)
     }
 
-    private val gridView by lazy { findViewById(R.id.gridView) as GridView }
+    private val gridView by lazy { findViewById<GridView>(R.id.gridView) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

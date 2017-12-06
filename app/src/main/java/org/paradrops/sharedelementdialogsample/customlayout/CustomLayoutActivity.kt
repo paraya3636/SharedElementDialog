@@ -16,8 +16,8 @@ class CustomLayoutActivity : AppCompatActivity() {
         fun navigateIntent(context: Context) : Intent = Intent(context, CustomLayoutActivity::class.java)
     }
 
-    private val customButton by lazy { findViewById(R.id.customButton) as ImageButton }
-    private val fullCustomButton by lazy { findViewById(R.id.fullCustomButton) as ImageButton }
+    private val customButton by lazy { findViewById<ImageButton>(R.id.customButton) }
+    private val fullCustomButton by lazy { findViewById<ImageButton>(R.id.fullCustomButton) }
 
     private val contentCustomDialog by lazy {
         val listener = object : SharedElementDialog.OnClickListener {
