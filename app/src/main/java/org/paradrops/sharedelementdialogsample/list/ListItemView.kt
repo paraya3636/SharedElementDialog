@@ -15,9 +15,9 @@ class ListItemView : LinearLayout {
         }
     }
 
-    val image by lazy { findViewById(R.id.image) as ImageView }
-    val title by lazy { findViewById(R.id.title) as TextView }
-    val message by lazy { findViewById(R.id.message) as TextView }
+    val image by lazy { findViewById<ImageView>(R.id.image) }
+    val title by lazy { findViewById<TextView>(R.id.title) }
+    val message by lazy { findViewById<TextView>(R.id.message) }
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
