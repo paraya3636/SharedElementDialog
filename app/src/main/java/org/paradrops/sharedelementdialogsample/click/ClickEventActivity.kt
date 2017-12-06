@@ -16,8 +16,8 @@ class ClickEventActivity : AppCompatActivity(), SharedElementDialog.OnClickListe
         fun navigateIntent(context: Context) : Intent = Intent(context, ClickEventActivity::class.java)
     }
 
-    private val cardView by lazy { findViewById(R.id.cardView) as CardView }
-    private val image by lazy { findViewById(R.id.image) as ImageView }
+    private val cardView by lazy { findViewById<CardView>(R.id.cardView) }
+    private val image by lazy { findViewById<ImageView>(R.id.image) }
 
     private val dialog by lazy {
         SharedElementDialog.Builder()
