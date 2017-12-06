@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.activity_codacy_test.*
 
 class CodacyTestActivity : AppCompatActivity() {
 
+    private val a = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_codacy_test)
@@ -16,9 +18,13 @@ class CodacyTestActivity : AppCompatActivity() {
         if (isChild) {
             if (isFinishing) {
                 if (isChangingConfigurations) {
-                    fab.setOnClickListener { view ->
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show()
+                    if ("".isEmpty()) {
+                        if ("".isEmpty()) {
+                            fab.setOnClickListener { view ->
+                                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show()
+                            }
+                        }
                     }
                 }
             }
@@ -30,4 +36,6 @@ class CodacyTestActivity : AppCompatActivity() {
         }
     }
 
+    fun methodaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa() {
+    }
 }
