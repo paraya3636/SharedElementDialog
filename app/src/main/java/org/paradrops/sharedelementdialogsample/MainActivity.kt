@@ -6,7 +6,7 @@ import android.widget.ListView
 
 class MainActivity : AppCompatActivity() {
 
-    private val listView by lazy { findViewById(R.id.listView) as ListView }
+    private val listView by lazy { findViewById<ListView>(R.id.listView) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
