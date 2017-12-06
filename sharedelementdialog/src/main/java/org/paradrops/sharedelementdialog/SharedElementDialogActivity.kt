@@ -60,19 +60,19 @@ class SharedElementDialogActivity : AppCompatActivity() {
 
     private val dialogInfo by lazy { intent.getParcelableExtra<SharedElementDialog>(SharedElementDialogInfo) }
 
-    private val title by lazy { findViewById(R.id.title) as? TextView }
-    private val image by lazy { findViewById(R.id.image) as? ImageView }
-    private val message by lazy { findViewById(R.id.message) as? TextView }
-    private val neutralButton by lazy { findViewById(R.id.neutralButton) as? Button }
-    private val negativeButton by lazy { findViewById(R.id.negativeButton) as? Button }
-    private val positiveButton by lazy { findViewById(R.id.positiveButton) as? Button }
+    private val title by lazy { findViewById<TextView>(R.id.title) }
+    private val image by lazy { findViewById<ImageView>(R.id.image) }
+    private val message by lazy { findViewById<TextView>(R.id.message) }
+    private val neutralButton by lazy { findViewById<Button>(R.id.neutralButton) }
+    private val negativeButton by lazy { findViewById<Button>(R.id.negativeButton) }
+    private val positiveButton by lazy { findViewById<Button>(R.id.positiveButton) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initContentView()
 
         if (dialogInfo.cancelable) {
-            findViewById(R.id.rootContainer).setOnClickListener {
+            findViewById<View>(R.id.rootContainer).setOnClickListener {
                 finishDialog(DialogActivityResultCode.ON_CANCEL.value)
             }
         }
@@ -133,13 +133,13 @@ class SharedElementDialogActivity : AppCompatActivity() {
             CustomLayoutType.ContentOnly -> {
                 setContentView(R.layout.activity_content_custom_dialog)
                 LayoutInflater.from(this).inflate(dialogInfo.customViewLayoutResId, null).let {
-                    (findViewById(R.id.contentArea) as? FrameLayout)?.addView(it)
+                    (findViewById<FrameLayout>(R.id.contentArea)).addView(it)
                 }
             }
             CustomLayoutType.Full -> {
                 setContentView(R.layout.activity_full_custom_dialog)
                 LayoutInflater.from(this).inflate(dialogInfo.customViewLayoutResId, null).let {
-                    (findViewById(R.id.contentContainer) as? FrameLayout)?.addView(it)
+                    (findViewById<FrameLayout>(R.id.contentContainer)).addView(it)
                 }
             }
         }
