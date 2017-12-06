@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="org.paradrops.sharedelementdialogsample">
+    package="org.paradrops.sharedelementdialogsample">
 
     <application
         android:allowBackup="true"
@@ -10,19 +10,23 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".grid.GridActivity">
-        </activity>
-        <activity android:name=".list.ListActivity">
-        </activity>
-        <activity android:name=".click.ClickEventActivity">
-        </activity>
-        <activity android:name=".customlayout.CustomLayoutActivity">
-        </activity>
+        <activity android:name=".grid.GridActivity" />
+        <activity android:name=".list.ListActivity" />
+        <activity android:name=".click.ClickEventActivity" />
+        <activity android:name=".customlayout.CustomLayoutActivity" />
+        <activity
+            android:name=".CodacyTestActivity"
+            android:label="@string/title_activity_codacy_test"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CodacyTest2Activity"
+            android:label="@string/title_activity_codacy_test2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

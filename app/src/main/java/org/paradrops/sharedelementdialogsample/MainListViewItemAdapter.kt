@@ -25,8 +25,8 @@ class MainListViewItemAdapter(context: Context, resource: Int, items: Array<out 
         }
 
         val inflatedView = view as View
-        val index = inflatedView.findViewById(R.id.index) as TextView
-        val title = inflatedView.findViewById(R.id.title) as TextView
+        val index = inflatedView.findViewById<TextView>(R.id.index)
+        val title = inflatedView.findViewById<TextView>(R.id.title)
         index.text = (position + 1).toString()
         title.text = items()[position]
         return inflatedView
